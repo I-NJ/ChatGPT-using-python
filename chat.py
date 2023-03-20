@@ -1,27 +1,20 @@
 
 import openai
+from passwords import *
 
-openai.api_key = " Enter the api key "
+openai.api_key = api_key()
 
-# { https://platform.openai.com/account/api-keys } go this website for api key
 
-while True:
-    model_engine = "text-davinci-003"
-    
-    prompt = input('You : ')
+question = input(">>>")
 
-    if 'exit' in prompt or 'quit' in prompt:
-        break
-
-    completion = openai.Completion.create(
-        engine=model_engine,
-        prompt=prompt,
+response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=question,
         max_tokens=1024,
         n=1,
         stop=None,
         temperature=0.5,
     )
 
-    response = completion.choices[0].text
-    
-    print("ChatGPT :"+response)
+print(response.choices[0].text)
+
